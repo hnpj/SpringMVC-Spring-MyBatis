@@ -3,10 +3,12 @@ package rml.service;
 import java.util.List;
 
 import rml.model.MUser;
+import rml.model.Page;
 
 public interface MUserServiceI {
 
 	List<MUser> getAll();
+	List<MUser> findPage(Page<MUser> page);
 	
 	MUser selectByPrimaryKey(String id);
 	
@@ -15,4 +17,5 @@ public interface MUserServiceI {
     int update(MUser muser);
     
     int delete(String id);
+    
 }

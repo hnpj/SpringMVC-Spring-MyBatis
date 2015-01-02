@@ -1,6 +1,6 @@
 package rml.model;
 
-public class MUser {
+public class MUser extends Page<MUser>{
     private String id;
 
     private String name;

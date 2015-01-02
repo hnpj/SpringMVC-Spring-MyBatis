@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import rml.dao.MUserMapper;
 import rml.model.MUser;
+import rml.model.Page;
 
 @Service("muserService")
 public class MUserServiceImpl implements MUserServiceI{
@@ -24,7 +25,7 @@ public class MUserServiceImpl implements MUserServiceI{
 	
 	@Override
 	public List<MUser> getAll() {
-		
+		System.out.println("listUser");
 		return muserMapper.getAll();
 	}
 
@@ -50,6 +51,22 @@ public class MUserServiceImpl implements MUserServiceI{
 	public MUser selectByPrimaryKey(String id) {
 		
 		return muserMapper.selectByPrimaryKey(id);
+	}
+
+	@Override
+	public List<MUser> findPage(Page<MUser> page) {
+		if(page==null){
+			page=new Page<MUser>();	
+		}
+		List<MUser> users = muserMapper.findPage(page);
+
+        page.setResults(users);
+        System.out.println("----------");
+        System.out.println("----------"+users.size());
+        System.out.println("----------"+page.getResults().size());
+        System.out.println(page);
+
+		return page.getResults();
 	}
 
 }

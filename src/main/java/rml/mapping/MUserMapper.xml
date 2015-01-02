@@ -83,4 +83,8 @@
   <select id="getAll" resultMap="BaseResultMap">
 	select ID, NAME, AGE, ADDRESS from muser
   </select>
+  
+  <select id="findPage" resultMap="BaseResultMap" parameterType="rml.model.Page">
+	select ID, NAME, AGE, ADDRESS from muser
+    </select>
 </mapper>

@@ -37,10 +37,13 @@ import rml.model.Page;
  * 置参数的功能把Sql语句中的参数进行替换，之后再执行查询记录数的Sql语句进行总记录数的统计。
  * 
  */
+
 @Intercepts({ @Signature(method = "prepare", type = StatementHandler.class, args = { Connection.class }) })
 public class PageInterceptor implements Interceptor {
 
 	private String databaseType;// 数据库类型，不同的数据库有不同的分页方法
+	public static final String ORACLE = "oracle";
+	public static final String MYSQL = "mysql";
 
 	public String getDatabaseType() {
 		return databaseType;
@@ -118,9 +121,9 @@ public class PageInterceptor implements Interceptor {
 	 */
 	private String getPageSql(Page<?> page, String sql) {
 		StringBuffer sqlBuffer = new StringBuffer(sql);
-		if ("mysql".equalsIgnoreCase(databaseType)) {
+		if (MYSQL.equalsIgnoreCase(databaseType)) {
 			return getMysqlPageSql(page, sqlBuffer);
-		} else if ("oracle".equalsIgnoreCase(databaseType)) {
+		} else if (ORACLE.equalsIgnoreCase(databaseType)) {
 			return getOraclePageSql(page, sqlBuffer);
 		}
 		return sqlBuffer.toString();
@@ -163,6 +166,7 @@ public class PageInterceptor implements Interceptor {
 		// 上面的Sql语句拼接之后大概是这个样子：
 		// select * from (select u.*, rownum r from (select * from t_user) u
 		// where rownum < 31) where r >= 16
+		System.out.println("oracle分页查询语句："+sqlBuffer.toString());
 		return sqlBuffer.toString();
 	}
 
