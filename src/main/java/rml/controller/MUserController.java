@@ -1,5 +1,6 @@
 package rml.controller;
 
+import java.util.Iterator;
 import java.util.List;
 import java.util.UUID;
 
@@ -41,6 +42,19 @@ public class MUserController {
 		String id = UUID.randomUUID().toString();
 		muser.setId(id);
 		muserService.insert(muser);
+		String address=muser.getAddress();
+		Integer age=muser.getAge();
+		String name=muser.getName();
+		/*添加1000条测试数据*/
+		for (int i = 0; i < 1000; i++) {
+			muser.setAddress(address+"-"+i);
+			muser.setAge(age+i);
+			muser.setName(name+"-"+i);
+			muser.setId(UUID.randomUUID().toString());
+			muserService.insert(muser);
+			
+			
+		}
 		return "redirect:/muserController/listUser.do";
 	}
 	

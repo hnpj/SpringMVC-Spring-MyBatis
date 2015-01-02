@@ -34,6 +34,14 @@ http://www.springframework.org/schema/aop/spring-aop-3.0.xsd
 	<bean id="SqlSessionFactoryBean" class="org.mybatis.spring.SqlSessionFactoryBean">
 		<property name="dataSource" ref="dataSource" />
 		<property name="mapperLocations" value="classpath:rml/mapping/*.xml" />
+		<property name="plugins">
+		  <list>
+		  <ref bean="pageInterceptor"></ref>
+		  </list>
+		</property>
+	</bean>
+	<bean id="pageInterceptor" class="rml.utls.filter.PageInterceptor">
+	<property name="databaseType" value="oracle"></property>
 	</bean>
 	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
 		<property name="basePackage" value="rml.dao" />
